@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YUVARAJ M - Portfolio</title>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            white-space: pre-wrap;
+            overflow: hidden;
+        }
+        
+        .content {
+            max-width: 800px;
+            width: 100%;
+            margin-top: 0;
+        }
+        
+        .green { color: #00ff00; }
+        .red { color: #ff0000; }
+        .blue { color: #00aaff; }
+        .cursor { animation: blink 1s infinite; }
+        
+        a.blue {
+            text-decoration: none;
+            border-bottom: 1px solid #00aaff;
+            color: #00aaff !important;
+            cursor: pointer;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="content"></div>
+
+    <script>
+        const content = [
+            // Command 1
+            {text: "root@yuvxraj_Hub:~# ", color: "green"},
+            {text: "cd Portfolio/", color: "white", delayAfter: 200},
+            
+            // Command 2
+            {text: "\nroot@yuvxraj_Hub:~/Portfolio# ", color: "green"},
+            {text: "cat about.txt", color: "white", delayAfter: 200},
+            
+            // About content
+            {text: "\n\nHello, Friend! Myself, ", color: "white"},
+            {text: "YUVARAJ M.", color: "blue", delayAfter: 100},
+            {text: "\n\nI'm an ", color: "white"},
+            {text: "Aspiring Cybersecurity Enthusiast", color: "blue"},
+            {text: ", who likes to explore ", color: "white"},
+            {text: "Multiple Dimensions", color: "blue"},
+            {text: " of Information Security and to work with ", color: "white"},
+            {text: "Various Technologies", color: "blue", delayAfter: 100},
+            
+            {text: "\n\nI developed a ", color: "white"},
+            {text: "Huge interest", color: "blue"},
+            {text: " in Cybersecurity at ", color: "white"},
+            {text: "age 17", color: "blue"},
+            {text: ", working to contribute to the ", color: "white"},
+            {text: "InfoSec Community", color: "blue", delayAfter: 100},
+            
+            {text: "\n\nMy Interests:\n", color: "white"},
+            {text: "- Web Development", color: "blue"},
+            {text: "\n- OSINT", color: "blue"},
+            {text: "\n- Web Application Security (SOC L1/L2)", color: "blue"},
+            {text: "\n- Reverse Engineering and Malware Analysis", color: "blue"},
+            {text: "\n- GRC", color: "blue"},
+            {text: "\n- Digital Forensics and Cloud Security Engineer", color: "blue", delayAfter: 100},
+            
+            // Contact command
+            {text: "\n\nroot@yuvxraj_Hub:~/Portfolio# ", color: "green"},
+            {text: "cat contact.txt", color: "white", delayAfter: 200},
+            
+            // Contact content
+            {text: "\n\nWanna Stay Connected?\n\n", color: "white"},
+            {text: "Twitter - ", color: "white"},
+            {link: "https://twitter.com/yuve_Tweets", text: "@yuve_Tweets", color: "blue"},
+            {text: "\n\nOooh, wait. Reach me at ", color: "white"},
+            {link: "mailto:yuvarajyeshwanth7574@gmail.com", text: "yuvarajyeshwanth7574@gmail.com", color: "blue", delayAfter: 100},
+            
+            // Final lines
+            {text: "\n\nDeveloper by Day. ", color: "white"},
+            {text: "Security Researcher by night.", color: "red"},
+            
+            // Exit command
+            {text: "\n\nroot@yuvxraj_Hub:~# ", color: "green"},
+            {text: "exit", color: "white", delayAfter: 200}
+        ];
+
+        const contentDiv = document.querySelector('.content');
+        let index = 0;
+        const typingSpeed = 40;
+        
+        function typeWriter() {
+            if(index >= content.length) {
+                contentDiv.innerHTML += '<span class="cursor">_</span>';
+                return;
+            }
+            
+            const segment = content[index];
+            
+            if(segment.link) {
+                const link = document.createElement('a');
+                link.href = segment.link;
+                link.target = "_blank";
+                link.className = "blue";
+                
+                let charIndex = 0;
+                function addLinkChar() {
+                    if(charIndex < segment.text.length) {
+                        link.textContent += segment.text[charIndex];
+                        contentDiv.appendChild(link);
+                        charIndex++;
+                        setTimeout(addLinkChar, typingSpeed);
+                    } else {
+                        index++;
+                        setTimeout(typeWriter, 50);
+                    }
+                }
+                addLinkChar();
+            } else {
+                const element = document.createElement('span');
+                if(segment.color) element.className = segment.color;
+                
+                let charIndex = 0;
+                function addChar() {
+                    if(charIndex < segment.text.length) {
+                        element.textContent += segment.text[charIndex];
+                        contentDiv.appendChild(element);
+                        charIndex++;
+                        setTimeout(addChar, typingSpeed);
+                    } else {
+                        index++;
+                        setTimeout(typeWriter, segment.delayAfter || 50);
+                    }
+                }
+                addChar();
+            }
+        }
+
+        // Start typing immediately
+        typeWriter();
+    </script>
+</body>
+</html>
